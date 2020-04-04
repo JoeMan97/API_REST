@@ -7,10 +7,11 @@ use Illuminate\Support\Facades\Schema;
 class CreateCompaniesTable extends Migration
 {
     /**
-     * Run the migrations.
+     * // Creando la tabla companies
      *
      * @return void
      */
+
     public function up()
     {
         Schema::create('companies', function (Blueprint $table) {

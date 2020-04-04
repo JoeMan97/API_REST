@@ -6,6 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Opinion extends Model
 {
+
+    protected $table = "opinions";
+
+    protected $fillable = [
+        "puntuation",
+        "title",
+        "resume",
+        "ip_address",
+        "company_id",
+        "user_id"
+    ];
+
     public function company() {
         return $this->belongsTo('App\Company');
     }
@@ -13,4 +25,5 @@ class Opinion extends Model
     public function user() {
         return $this->belongsTo('App\User');
     }
+    
 }

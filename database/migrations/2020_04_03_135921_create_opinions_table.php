@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 class CreateOpinionsTable extends Migration
 {
     /**
-     * Run the migrations.
+     * // Creando la tabla opinions
      *
      * @return void
      */
