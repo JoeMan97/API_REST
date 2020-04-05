@@ -9,6 +9,8 @@ class Opinion extends Model
 
     protected $table = "opinions";
 
+    protected  $primaryKey = 'opinion_id';
+
     protected $fillable = [
         "puntuation",
         "title",

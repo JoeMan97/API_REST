@@ -178,8 +178,17 @@ return [
         'subject'               => 'asunto',
         'terms'                 => 'términos',
         'time'                  => 'hora',
-        'title'                 => 'título',
+        
         'username'              => 'usuario',
         'year'                  => 'año',
+
+        // mis atributos
+        
+        'puntuation' => 'puntuación',
+        'title'                 => 'título',
+        'resume' => 'resumen',
+        'ip_address' => 'dirección IP',
+        'company_id' => 'compañía',
+        'user_id' => 'usuario',
     ],
 ];

@@ -9,6 +9,8 @@ class Company extends Model
 
     protected $table = "companies";
 
+    protected  $primaryKey = 'company_id';
+
     protected $fillable = [
         "name",
         "address",

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Company;
 use Illuminate\Http\Request;
 
+use Validator;
+
 class CompanyController extends Controller
 {
     /**
@@ -14,7 +16,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return response()->json(Company::get(), 200);
+        return response()->json(Company::get(), 200); // 200: OK
     }
 
     /**
@@ -25,8 +27,18 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
+        // validaciones a los campos
+        $rules = [
+            'name' => 'required|max: 25',
+            'address' => 'required|max: 100',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+            return response()->json($validator->errors(), 400); // 400: Bad Request
+        }
+
         $company = Company::create($request->all());
-        return response()->json($company, 201);
+        return response()->json($company, 201); // 201: Created
     }
 
     /**

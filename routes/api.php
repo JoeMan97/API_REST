@@ -19,7 +19,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResources([
-        'opinions' => 'OpinionController',
-        'companies' => 'CompanyController'
-    ]);
+    'opinions' => 'OpinionController',
+    'companies' => 'CompanyController'
+]);
+
+// Route::apiResource('companies', 'CompanyController')->middleware('auth:api');
+
+// Route::apiResource('opinions', 'OpinionController')->middleware('auth:api');
+
+
 
