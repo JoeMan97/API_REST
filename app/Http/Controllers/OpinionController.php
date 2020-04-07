@@ -10,10 +10,12 @@ use Validator;
 use App\Company;
 use App\User;
 
+use Illuminate\Support\Facades\DB;
+
 class OpinionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra las opiniones de todos los usuarios
      *
      * @return \Illuminate\Http\Response
      */
@@ -23,7 +25,7 @@ class OpinionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena una opinion
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -60,14 +62,16 @@ class OpinionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra las opiniones del usuario que hace la peticion
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($user_id)
     {
-        //
+        return response()->json(DB::table('opinions')
+            ->where('user_id', '=', $user_id)
+            ->get(), 200); // 200: OK
     }
 
     /**
