@@ -21,6 +21,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/mis opiniones', function () {
+Route::get('/crear', function () {
     return view('opinions.create');
+});
+
+Route::get('/mis opiniones', function () {
+    return view('opinions.index');
 });

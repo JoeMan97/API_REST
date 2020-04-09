@@ -19,9 +19,10 @@ class OpinionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Opinion::get(), 200); // 200: OK
+        if($request->ajax())
+            return response()->json(Opinion::get(), 200); // 200: OK
     }
 
     /**
