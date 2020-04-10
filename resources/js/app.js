@@ -24,6 +24,8 @@ Vue.component('opinions-component', require('./components/OpinionsComponent.vue'
 Vue.component('new-opinion-component', require('./components/NewOpinionComponent.vue').default);
 
 Vue.component('opinion-form-component', require('./components/OpinionFormComponent.vue').default);
+
+Vue.component('opinion-details-component', require('./components/OpinionDetailsComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

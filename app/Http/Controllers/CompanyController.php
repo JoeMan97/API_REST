@@ -41,4 +41,15 @@ class CompanyController extends Controller
         return response()->json($company, 201); // 201: Created
     }
 
+    /**
+     * Muestra la compañia con el id $id
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request, $company_id){
+        if($request->ajax())
+            return response()->json(Company::find($company_id), 200); // 200: OK
+    }
+
 }

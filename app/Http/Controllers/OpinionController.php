@@ -65,7 +65,7 @@ class OpinionController extends Controller
     /**
      * Muestra las opiniones del usuario que hace la peticion
      *
-     * @param  int  $id
+     * @param  int  $user_id
      * @return \Illuminate\Http\Response
      */
     public function show($user_id)
