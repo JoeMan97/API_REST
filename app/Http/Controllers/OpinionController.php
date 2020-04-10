@@ -21,8 +21,16 @@ class OpinionController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax())
-            return response()->json(Opinion::get(), 200); // 200: OK
+        if($request->ajax()){}{
+            $opinions = DB::table('opinions')
+            ->join('users', 'opinions.user_id', '=', 'users.user_id')
+            ->join('companies', 'opinions.company_id', '=', 'companies.company_id')
+            ->select('opinions.*',
+            'users.name as user_name', 'users.email',
+            'companies.name as company_name', 'companies.address')
+            ->get();
+            return response()->json($opinions, 200); // 200: OK
+        }
     }
 
     /**

@@ -7,7 +7,7 @@
                     {{ opinion.title }}
                 </h5>
                 <div class="card-body">
-                    <h6 class="card-subtitle mb-2 text-muted">Puntuación: {{ opinion.puntuation }} / 5</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Puntuación: {{ opinion.score }} / 5</h6>
                     <p class="card-text">{{ opinion.resume }}</p>
                     <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalCenter" 
                     >Detalles</button>
@@ -16,8 +16,10 @@
             <OpinionDetails 
                 :opinion-created-at="opinion.created_at" 
                 :opinion-ip-address="opinion.ip_address"
-                :opinion-user-id="opinion.user_id"
-                :opinion-company-id="opinion.company_id"
+                :user-name="opinion.user_name"
+                :user-email="opinion.email"
+                :company-name="opinion.company_name"
+                :company-address="opinion.address"
             />
         </div>
     </div>    

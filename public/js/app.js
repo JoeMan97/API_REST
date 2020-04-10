@@ -1966,11 +1966,17 @@ __webpack_require__.r(__webpack_exports__);
     opinionIpAddress: {
       type: String
     },
-    opinionUserId: {
-      type: Number
+    userName: {
+      type: String
     },
-    opinionCompanyId: {
-      type: Number
+    userEmail: {
+      type: String
+    },
+    companyName: {
+      type: String
+    },
+    companyAddress: {
+      type: String
     }
   },
   data: function data() {
@@ -1980,14 +1986,7 @@ __webpack_require__.r(__webpack_exports__);
       loading: true
     };
   },
-  mounted: function mounted() {
-    var _this = this;
-
-    axios.get("http://127.0.0.1:8000/api/companies/".concat(this.opinionCompanyId)).then(function (response) {
-      return _this.company = response.data;
-    });
-    console.log('montado');
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -2093,6 +2092,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_OpinionDetailsComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/OpinionDetailsComponent.vue */ "./resources/js/components/OpinionDetailsComponent.vue");
+//
+//
 //
 //
 //
@@ -38272,15 +38273,15 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("li", { staticClass: "list-group-item" }, [
-              _c("p", [_vm._v("Usuario: " + _vm._s(_vm.opinionUserId))]),
+              _c("p", [_vm._v("Usuario: " + _vm._s(_vm.userName))]),
               _vm._v(" "),
-              _c("p", [_vm._v("email:")])
+              _c("p", [_vm._v("email: " + _vm._s(_vm.userEmail))])
             ]),
             _vm._v(" "),
             _c("li", { staticClass: "list-group-item" }, [
-              _c("p", [_vm._v("Empresa: " + _vm._s(_vm.company.name))]),
+              _c("p", [_vm._v("Empresa: " + _vm._s(_vm.companyName))]),
               _vm._v(" "),
-              _c("p", [_vm._v("Dirección: " + _vm._s(_vm.company.address))])
+              _c("p", [_vm._v("Dirección: " + _vm._s(_vm.companyAddress))])
             ])
           ])
         ]
@@ -38575,7 +38576,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c("h6", { staticClass: "card-subtitle mb-2 text-muted" }, [
-                _vm._v("Puntuación: " + _vm._s(opinion.puntuation) + " / 5")
+                _vm._v("Puntuación: " + _vm._s(opinion.score) + " / 5")
               ]),
               _vm._v(" "),
               _c("p", { staticClass: "card-text" }, [
@@ -38601,8 +38602,10 @@ var render = function() {
             attrs: {
               "opinion-created-at": opinion.created_at,
               "opinion-ip-address": opinion.ip_address,
-              "opinion-user-id": opinion.user_id,
-              "opinion-company-id": opinion.company_id
+              "user-name": opinion.user_name,
+              "user-email": opinion.email,
+              "company-name": opinion.company_name,
+              "company-address": opinion.address
             }
           })
         ],

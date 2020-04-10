@@ -15,12 +15,12 @@
                     <p>Dirección IP: {{ opinionIpAddress }}</p> 
                 </li>
                 <li class="list-group-item">
-                    <p>Usuario: {{ opinionUserId }}</p>
-                    <p>email:</p>
+                    <p>Usuario: {{ userName }}</p>
+                    <p>email: {{ userEmail }}</p>
                 </li>
                 <li class="list-group-item">
-                    <p>Empresa: {{ company.name }}</p>
-                    <p>Dirección: {{ company.address }}</p>
+                    <p>Empresa: {{ companyName }}</p>
+                    <p>Dirección: {{ companyAddress }}</p>
                 </li>
     
         </div>
@@ -35,8 +35,10 @@
         props: {
             opinionCreatedAt: { type: String },
             opinionIpAddress: { type: String },
-            opinionUserId: { type: Number },
-            opinionCompanyId: { type: Number },
+            userName: { type: String },
+            userEmail: { type: String },
+            companyName: { type: String },
+            companyAddress: { type: String },
         },
         data() {    
             return {
@@ -46,8 +48,7 @@
             }
         },
         mounted(){
-            axios.get(`http://127.0.0.1:8000/api/companies/${this.opinionCompanyId}`).then(response => (this.company = response.data))
-            console.log('montado')
+
         },
     }
 </script>
