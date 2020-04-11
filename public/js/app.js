@@ -2067,8 +2067,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      loading: true,
+      // arreglo para llenar el select con los nombres de las empresas
       companies: [],
-      loading: true
+      // variables para enviar los datos de la opinion
+      company_id: null,
+      score: null,
+      title: null,
+      resume: null,
+      ip_address: '201.157.167.255',
+      user_id: 10
     };
   },
   mounted: function mounted() {
@@ -2077,6 +2085,24 @@ __webpack_require__.r(__webpack_exports__);
     axios.get('http://127.0.0.1:8000/api/companies').then(function (response) {
       return _this.companies = response.data;
     });
+  },
+  methods: {
+    saveOpinion: function saveOpinion() {
+      this.score = document.querySelector('input[name="score"]:checked').value;
+      axios.post('http://127.0.0.1:8000/api/opinions', {
+        score: this.score,
+        title: this.title,
+        resume: this.resume,
+        ip_address: this.ip_address,
+        company_id: this.company_id,
+        user_id: this.user_id
+      }).then(function (res) {
+        console.log(res);
+        $('#newOpinion').modal('hide');
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
   }
 });
 
@@ -38352,50 +38378,132 @@ var render = function() {
           _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "modal-body" }, [
-            _c("form", [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "" } }, [_vm._v("Empresa")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "input-group mb-3" }, [
-                  _c(
-                    "select",
-                    {
-                      staticClass: "custom-select",
-                      attrs: { id: "inputGroupSelect02" }
-                    },
-                    [
-                      _c("option", { attrs: { selected: "" } }, [
-                        _vm._v("Elije la empresa...")
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(_vm.companies, function(company) {
-                        return _c(
-                          "option",
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.saveOpinion($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Empresa")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group mb-3" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
                           {
-                            key: company.company_id,
-                            domProps: { value: company.company_id }
-                          },
-                          [_vm._v(_vm._s(company.name))]
-                        )
-                      })
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.company_id,
+                            expression: "company_id"
+                          }
+                        ],
+                        staticClass: "custom-select",
+                        attrs: { id: "inputGroupSelect02" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.company_id = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { selected: "" } }, [
+                          _vm._v("Elije la empresa...")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.companies, function(company) {
+                          return _c(
+                            "option",
+                            {
+                              key: company.company_id,
+                              domProps: { value: company.company_id }
+                            },
+                            [_vm._v(_vm._s(company.name))]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Título")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.title,
+                        expression: "title"
+                      }
                     ],
-                    2
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _vm._m(1),
-              _vm._v(" "),
-              _vm._m(2),
-              _vm._v(" "),
-              _vm._m(3),
-              _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-                [_vm._v("Enviar")]
-              )
-            ])
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.title },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.title = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Resumen")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.resume,
+                        expression: "resume"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.resume },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.resume = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                  [_vm._v("Enviar")]
+                )
+              ]
+            )
           ])
         ])
       ])
@@ -38454,87 +38562,67 @@ var staticRenderFns = [
                   _c("input", {
                     attrs: {
                       type: "radio",
-                      name: "options",
+                      name: "score",
                       id: "option1",
                       value: "1"
                     }
                   }),
-                  _vm._v(" 1\n                        ")
+                  _vm._v(" 1\n                            ")
                 ]),
                 _vm._v(" "),
                 _c("label", { staticClass: "btn btn-light" }, [
                   _c("input", {
                     attrs: {
                       type: "radio",
-                      name: "options",
+                      name: "score",
                       id: "option2",
                       value: "2"
                     }
                   }),
-                  _vm._v(" 2\n                        ")
+                  _vm._v(" 2\n                            ")
                 ]),
                 _vm._v(" "),
                 _c("label", { staticClass: "btn btn-light" }, [
                   _c("input", {
                     attrs: {
                       type: "radio",
-                      name: "options",
+                      name: "score",
                       id: "option3",
                       value: "3",
                       checked: ""
                     }
                   }),
-                  _vm._v(" 3\n                        ")
+                  _vm._v(" 3\n                            ")
                 ]),
                 _vm._v(" "),
                 _c("label", { staticClass: "btn btn-light" }, [
                   _c("input", {
                     attrs: {
                       type: "radio",
-                      name: "options",
-                      id: "option3",
+                      name: "score",
+                      id: "option4",
                       value: "4"
                     }
                   }),
-                  _vm._v(" 4\n                        ")
+                  _vm._v(" 4\n                            ")
                 ]),
                 _vm._v(" "),
                 _c("label", { staticClass: "btn btn-light" }, [
                   _c("input", {
                     attrs: {
                       type: "radio",
-                      name: "options",
-                      id: "option3",
+                      name: "score",
+                      id: "option5",
                       value: "5"
                     }
                   }),
-                  _vm._v(" 5\n                        ")
+                  _vm._v(" 5\n                            ")
                 ])
               ]
             )
           ]
         )
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Título")]),
-      _vm._v(" "),
-      _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Resumen")]),
-      _vm._v(" "),
-      _c("input", { staticClass: "form-control", attrs: { type: "text" } })
     ])
   }
 ]

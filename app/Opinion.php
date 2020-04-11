@@ -12,7 +12,7 @@ class Opinion extends Model
     protected  $primaryKey = 'opinion_id';
 
     protected $fillable = [
-        "puntuation",
+        "score",
         "title",
         "resume",
         "ip_address",
