@@ -14,11 +14,11 @@
                 <div class="form-group">
                     <label for="">Empresa</label>
                     <div class="input-group mb-3">
-                    <select class="custom-select" id="inputGroupSelect02" v-model="company_id">
-                        <option selected>Elije la empresa...</option>
-                        <option v-for="company in companies" v-bind:key="company.company_id" v-bind:value="company.company_id">{{ company.name }}</option>
-                    </select>
+                        <select class="custom-select" id="inputGroupSelect02" v-model="company_id">
+                            <option v-for="company in companies" v-bind:key="company.company_id" v-bind:value="company.company_id">{{ company.name }}</option>
+                        </select>
                     </div>
+                    <p v-if="errors.company_id" class="mt-n2 text-danger">{{ errors.company_id[0] }}</p>
                 </div>
                 <div class="form-group">
                     <label for="">Puntuación</label>
@@ -47,13 +47,15 @@
                 <div class="form-group">
                     <label for="">Título</label>
                     <input type="text" class="form-control" v-model="title">
+                    <p v-if="errors.title" class="mt-1 text-danger">{{ errors.title[0] }}</p>
                 </div>
                 <div class="form-group">
                     <label for="">Resumen</label>
                     <input type="text" class="form-control" v-model="resume">
+                    <p v-if="errors.resume" class="mt-1 text-danger">{{ errors.resume[0] }}</p>
                 </div>
                 
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="submit" class="mt-1 btn btn-primary">Enviar</button>
             </form>
         </div>
         </div>
@@ -63,11 +65,11 @@
 </template>
 
 <script>
+    import EventBus from '../event-bus';
+    
     export default {
         data() {    
             return {
-                loading: true,
-                
                 // arreglo para llenar el select con los nombres de las empresas
                 companies: [],
 
@@ -78,6 +80,9 @@
                 resume: null,
                 ip_address: '201.157.167.255',
                 user_id: 10,
+
+                // arreglo para obtener posibles errores al enviar el formulario
+                errors: []
             }
         },
         mounted(){
@@ -85,6 +90,7 @@
         },
         methods:{
             saveOpinion: function(){
+                this.errors = [];
 
                 this.score=document.querySelector('input[name="score"]:checked').value;
                 
@@ -97,11 +103,13 @@
                     user_id: this.user_id
                 })
                 .then(function(res){
-                    console.log(res);
                     $('#newOpinion').modal('hide');
+                    EventBus.$emit('opinion-added', res.data.opinion);
                 })
-                .catch(function(err){
-                    console.log(err)
+                .catch(err => {
+                    if(err.response.status == 422){
+                        this.errors = err.response.data;
+                    }
                 });
             },
         }        

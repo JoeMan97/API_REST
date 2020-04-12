@@ -55,7 +55,7 @@ class OpinionController extends Controller
             ];
             $validator = Validator::make($request->all(), $rules);
             if($validator->fails()){
-                return response()->json($validator->errors(), 400); // 400: Bad Request
+                return response()->json($validator->errors(), 422); // 422: Unprocessable Entity
             }
 
             // valida que exista el company_id y el user_id
@@ -69,7 +69,8 @@ class OpinionController extends Controller
             // guarda la opinion
             $opinion = Opinion::create($request->all());
             return response()->json([
-                "mesage" => "Opinión creada correctamente."
+                "mesage" => "Opinión creada correctamente.",
+                "opinion" => $opinion
             ], 201); // 201: Created
 
         }

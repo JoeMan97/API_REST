@@ -1,6 +1,7 @@
 <template>
 
     <div class="row" >
+        <spinner v-show="loading"></spinner>
         <div v-for="opinion in opinions" v-bind:key="opinion.opinion_id" style="margin-bottom: 20px;">
             <div class="card">
                 <h5 class="card-header">
@@ -28,6 +29,7 @@
 
 <script>
     import OpinionDetails from '../components/OpinionDetailsComponent.vue'
+    import EventBus from '../event-bus';
 
     export default {
         data() {    
@@ -36,8 +38,16 @@
                 loading: true
             }
         },
+        created(){
+            EventBus.$on('opinion-added', data => {
+                this.opinions.push(data)
+            });
+        },
         mounted(){
-            axios.get('http://127.0.0.1:8000/api/opinions').then(response => (this.opinions = response.data))
+            axios.get('http://127.0.0.1:8000/api/opinions').then(response => (
+                this.opinions = response.data,
+                this.loading = false
+            ))
         },
         components: {
             OpinionDetails

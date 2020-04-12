@@ -34,7 +34,7 @@ class CompanyController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails()){
-            return response()->json($validator->errors(), 400); // 400: Bad Request
+            return response()->json($validator->errors(), 422); // 422: Unprocessable Entity
         }
 
         $company = Company::create($request->all());
