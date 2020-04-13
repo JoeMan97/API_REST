@@ -78,7 +78,7 @@
                 score: null,
                 title: null,
                 resume: null,
-                ip_address: '201.157.167.255',
+                ip_address: null,
                 user_id: 10,
 
                 // arreglo para obtener posibles errores al enviar el formulario
@@ -89,11 +89,13 @@
             axios.get('http://127.0.0.1:8000/api/companies').then(response => (this.companies = response.data))
         },
         methods:{
-            saveOpinion: function(){
+            saveOpinion: async function() {
                 this.errors = [];
 
-                this.score=document.querySelector('input[name="score"]:checked').value;
-                
+                this.score=document.querySelector('input[name="score"]:checked').value;          
+
+                await $.getJSON("https://api.ipify.org?format=json").then(response => (this.ip_address = response.ip));
+
                 axios.post('http://127.0.0.1:8000/api/opinions',{
                     score: this.score,
                     title: this.title,
