@@ -25,7 +25,7 @@ class OpinionController extends Controller
             $opinions = DB::table('opinions')
             ->join('users', 'opinions.user_id', '=', 'users.user_id')
             ->join('companies', 'opinions.company_id', '=', 'companies.company_id')
-            ->select('opinions.*',
+            ->select('opinions.opinion_id', 'opinions.score', 'opinions.title', 'opinions.resume', 'opinions.ip_address', 'opinions.created_at', 'opinions.company_id',
             'users.name as user_name', 'users.email',
             'companies.name as company_name', 'companies.address')
             ->get();
@@ -68,10 +68,9 @@ class OpinionController extends Controller
         
             // guarda la opinion
             $opinion = Opinion::create($request->all());
-            return response()->json([
-                "mesage" => "Opinión creada correctamente.",
-                "opinion" => $opinion
-            ], 201); // 201: Created
+
+            // retorna la opinion completa en forma de json
+            return $this->getByOpinionId($opinion->opinion_id);
 
         }
     }
@@ -82,11 +81,41 @@ class OpinionController extends Controller
      * @param  int  $user_id
      * @return \Illuminate\Http\Response
      */
-    public function show($user_id)
+    public function showByUserId(Request $request, $user_id)
     {
-        return response()->json(DB::table('opinions')
+        if($request->ajax()){}{
+            $opinions = DB::table('opinions')
+            ->join('users', 'opinions.user_id', '=', 'users.user_id')
+            ->join('companies', 'opinions.company_id', '=', 'companies.company_id')
+            ->select('opinions.opinion_id', 'opinions.score', 'opinions.title', 'opinions.resume', 'opinions.ip_address', 'opinions.created_at', 'opinions.company_id',
+            'users.name as user_name', 'users.email',
+            'companies.name as company_name', 'companies.address')
             ->where('user_id', '=', $user_id)
-            ->get(), 200); // 200: OK
+            ->get();
+            return response()->json($opinions, 200); // 200: OK
+        }
     }
 
+    /**
+     * Para obtener una opinion en especifico en la funcion store
+     *
+     * @param  int  $user_id
+     * @return \Illuminate\Http\Response
+     */
+    private function getByOpinionId($opinion_id)
+    {
+        $opinion = DB::table('opinions')
+        ->join('users', 'opinions.user_id', '=', 'users.user_id')
+        ->join('companies', 'opinions.company_id', '=', 'companies.company_id')
+        ->select('opinions.opinion_id', 'opinions.score', 'opinions.title', 'opinions.resume', 'opinions.ip_address', 'opinions.created_at', 'opinions.company_id',
+        'users.name as user_name', 'users.email',
+        'companies.name as company_name', 'companies.address')
+        ->where('opinion_id', '=', $opinion_id)
+        ->get();
+
+        return response()->json([
+            "message" => "Opinión creada correctamente.",
+            "opinion" => $opinion[0]
+        ], 201); // 201: Created
+    }
 }

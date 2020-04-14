@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Puntuación</label>
-                    <div class="div-in-block">
+                    <div>
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-light active">
@@ -51,7 +51,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Resumen</label>
-                    <input type="text" class="form-control" v-model="resume">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="resume"></textarea>
                     <p v-if="errors.resume" class="mt-1 text-danger">{{ errors.resume[0] }}</p>
                 </div>
                 
@@ -86,7 +86,7 @@
             }
         },
         mounted(){
-            axios.get('http://127.0.0.1:8000/api/companies').then(response => (this.companies = response.data))
+            axios.get('http://127.0.0.1:8000/api/companies').then(response => (this.companies = response.data));
         },
         methods:{
             saveOpinion: async function() {
@@ -106,7 +106,7 @@
                 })
                 .then(function(res){
                     $('#newOpinion').modal('hide');
-                    EventBus.$emit('opinion-added', res.data.opinion);
+                    EventBus.$emit('opinion-added', res.data);
                 })
                 .catch(err => {
                     if(err.response.status == 422){
@@ -117,9 +117,3 @@
         }        
     }
 </script>
-
-<style scoped>
-    .div-in-block{
-        display: block;
-    }
-</style>
