@@ -14,18 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::apiResources([
+//     'opinions' => 'OpinionController',
+//     'companies' => 'CompanyController'
+// ]);
 
-Route::apiResources([
-    'opinions' => 'OpinionController',
-    'companies' => 'CompanyController'
-]);
+Route::apiResource('companies', 'CompanyController')->middleware('auth:api');
 
-// Route::apiResource('companies', 'CompanyController')->middleware('auth:api');
+// index
+Route::get('opinions', 'OpinionController@index')->middleware('auth:api');
 
-// Route::apiResource('opinions', 'OpinionController')->middleware('auth:api');
+// show
+Route::get('opinions/{user_id}', 'OpinionController@showByUserId')->middleware('auth:api');
 
 
 

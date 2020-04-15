@@ -90,7 +90,7 @@ class OpinionController extends Controller
             ->select('opinions.opinion_id', 'opinions.score', 'opinions.title', 'opinions.resume', 'opinions.ip_address', 'opinions.created_at', 'opinions.company_id',
             'users.name as user_name', 'users.email',
             'companies.name as company_name', 'companies.address')
-            ->where('user_id', '=', $user_id)
+            ->where('users.user_id', '=', $user_id)
             ->get();
             return response()->json($opinions, 200); // 200: OK
         }
