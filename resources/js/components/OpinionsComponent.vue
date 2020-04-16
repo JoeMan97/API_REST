@@ -46,8 +46,10 @@
                 this.message = data.message
             });
         },
+        props:
+            ['userId', 'apiToken'],
         mounted(){
-            axios.get('http://127.0.0.1:8000/api/opinions').then(response => (
+            axios.get('http://127.0.0.1:8000/api/opinions/'+this.userId+'?api_token='+this.apiToken).then(response => (
                 this.opinions = response.data,
                 this.loading = false
             ));

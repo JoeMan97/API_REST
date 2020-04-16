@@ -56,7 +56,7 @@ class OpinionController extends Controller
             $validator = Validator::make($request->all(), $rules);
             if($validator->fails()){
                 return response()->json($validator->errors(), 422); // 422: Unprocessable Entity
-            }
+            } 
 
             // valida que exista el company_id y el user_id
             $company_id = $request->input('company_id');

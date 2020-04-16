@@ -22,7 +22,9 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('companies', 'CompanyController')->middleware('auth:api');
 
 // index
-Route::get('opinions', 'OpinionController@index')->middleware('auth:api');
+// Route::get('opinions', 'OpinionController@index')->middleware('auth:api');
+
+Route::post('opinions', 'OpinionController@store')->middleware('auth:api');
 
 // show
 Route::get('opinions/{user_id}', 'OpinionController@showByUserId')->middleware('auth:api');

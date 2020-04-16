@@ -85,8 +85,11 @@
                 errors: []
             }
         },
+        props:
+            ['apiToken'],
         mounted(){
-            axios.get('http://127.0.0.1:8000/api/companies').then(response => (this.companies = response.data));
+            console.log(this.apiToken);
+            axios.get('http://127.0.0.1:8000/api/companies?api_token='+this.apiToken).then(response => (this.companies = response.data));
         },
         methods:{
             saveOpinion: async function() {
@@ -96,7 +99,7 @@
 
                 await $.getJSON("https://api.ipify.org?format=json").then(response => (this.ip_address = response.ip));
 
-                axios.post('http://127.0.0.1:8000/api/opinions',{
+                axios.post('http://127.0.0.1:8000/api/opinions?api_token='+this.apiToken,{
                     score: this.score,
                     title: this.title,
                     resume: this.resume,

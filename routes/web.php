@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/index', 'HomeController@index')->name('index');
 
 Route::get('/mis opiniones', function () {
     return view('opinions.index');

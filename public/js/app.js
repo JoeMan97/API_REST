@@ -2104,10 +2104,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       errors: []
     };
   },
+  props: ['apiToken'],
   mounted: function mounted() {
     var _this = this;
 
-    axios.get('http://127.0.0.1:8000/api/companies').then(function (response) {
+    console.log(this.apiToken);
+    axios.get('http://127.0.0.1:8000/api/companies?api_token=' + this.apiToken).then(function (response) {
       return _this.companies = response.data;
     });
   },
@@ -2128,7 +2130,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 4:
-                axios.post('http://127.0.0.1:8000/api/opinions', {
+                axios.post('http://127.0.0.1:8000/api/opinions?api_token=' + this.apiToken, {
                   score: this.score,
                   title: this.title,
                   resume: this.resume,
@@ -2221,10 +2223,11 @@ __webpack_require__.r(__webpack_exports__);
       _this.opinions.push(data.opinion), _this.message = data.message;
     });
   },
+  props: ['userId', 'apiToken'],
   mounted: function mounted() {
     var _this2 = this;
 
-    axios.get('http://127.0.0.1:8000/api/opinions').then(function (response) {
+    axios.get('http://127.0.0.1:8000/api/opinions/' + this.userId + '?api_token=' + this.apiToken).then(function (response) {
       return _this2.opinions = response.data, _this2.loading = false;
     });
   },
