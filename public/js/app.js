@@ -1911,98 +1911,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NewOpinionComponent.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/NewOpinionComponent.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OpinionDetailsComponent.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/OpinionDetailsComponent.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    opinionCreatedAt: {
-      type: String
-    },
-    opinionIpAddress: {
-      type: String
-    },
-    userName: {
-      type: String
-    },
-    userEmail: {
-      type: String
-    },
-    companyName: {
-      type: String
-    },
-    companyAddress: {
-      type: String
-    }
-  },
-  data: function data() {
-    return {
-      company: [],
-      user: [],
-      loading: true
-    };
-  },
-  mounted: function mounted() {}
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OpinionFormComponent.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/OpinionFormComponent.vue?vue&type=script&lang=js& ***!
@@ -2087,6 +1995,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2099,21 +2009,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       title: null,
       resume: null,
       ip_address: null,
-      user_id: 10,
       // arreglo para obtener posibles errores al enviar el formulario
       errors: []
     };
   },
-  props: ['apiToken'],
+  props: // prop obtenido de las variable de la vista opinions/index.blade.php
+  ['userId', 'apiToken'],
   mounted: function mounted() {
     var _this = this;
 
-    console.log(this.apiToken);
     axios.get('http://127.0.0.1:8000/api/companies?api_token=' + this.apiToken).then(function (response) {
       return _this.companies = response.data;
     });
   },
   methods: {
+    // metodo para enviar la opinión
     saveOpinion: function () {
       var _saveOpinion = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var _this2 = this;
@@ -2122,22 +2032,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                this.errors = [];
-                this.score = document.querySelector('input[name="score"]:checked').value;
+                this.errors = []; // limpia los mensajes de error  del formulario
+
+                this.score = document.querySelector('input[name="score"]:checked').value; // obtiene la puntuacion     
+
                 _context.next = 4;
                 return $.getJSON("https://api.ipify.org?format=json").then(function (response) {
                   return _this2.ip_address = response.ip;
                 });
 
               case 4:
+                // obtiene la IP
                 axios.post('http://127.0.0.1:8000/api/opinions?api_token=' + this.apiToken, {
+                  // hace la peticion
                   score: this.score,
                   title: this.title,
                   resume: this.resume,
                   ip_address: this.ip_address,
                   company_id: this.company_id,
-                  user_id: this.user_id
+                  user_id: this.userId
                 }).then(function (res) {
+                  // Emite el evento
                   $('#newOpinion').modal('hide');
                   _event_bus__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('opinion-added', res.data);
                 })["catch"](function (err) {
@@ -2174,8 +2089,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_OpinionDetailsComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/OpinionDetailsComponent.vue */ "./resources/js/components/OpinionDetailsComponent.vue");
-/* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../event-bus */ "./resources/js/event-bus.js");
+/* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../event-bus */ "./resources/js/event-bus.js");
 //
 //
 //
@@ -2206,40 +2120,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      // variable para saber si las opiniones estan cargando y mostrar el spinner
       loading: true,
+      // variable para mostrar el mensaje de exito al agregar una opinion
       message: null,
+      // arreglo para obtener las opiniones de la BD
       opinions: []
     };
   },
   created: function created() {
     var _this = this;
 
-    _event_bus__WEBPACK_IMPORTED_MODULE_1__["default"].$on('opinion-added', function (data) {
+    // metodo que se ejecuta al enviar una opinion en el formulario
+    _event_bus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('opinion-added', function (data) {
       _this.opinions.push(data.opinion), _this.message = data.message;
     });
   },
-  props: ['userId', 'apiToken'],
+  props: // props obtenidos de las variables de la vista opinions/index.blade.php
+  ['userId', 'apiToken'],
   mounted: function mounted() {
     var _this2 = this;
 
+    // aqui se obtienen las opiniones del usuario
     axios.get('http://127.0.0.1:8000/api/opinions/' + this.userId + '?api_token=' + this.apiToken).then(function (response) {
       return _this2.opinions = response.data, _this2.loading = false;
     });
   },
   methods: {
+    // metodo para mostrar las fechas de las opiniones de manera legible
     getDate: function getDate(created_at) {
       var date = new Date(created_at);
       var sDate = date.getDate() + " / " + (date.getMonth() + 1) + " / " + date.getFullYear();
       return sDate;
     }
-  },
-  components: {
-    OpinionDetails: _components_OpinionDetailsComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -39039,105 +38958,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OpinionDetailsComponent.vue?vue&type=template&id=06b85d3c&scoped=true&":
-/*!**************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/OpinionDetailsComponent.vue?vue&type=template&id=06b85d3c&scoped=true& ***!
-  \**************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "modal fade",
-      attrs: {
-        id: "exampleModalCenter",
-        tabindex: "-1",
-        role: "dialog",
-        "aria-labelledby": "exampleModalCenterTitle",
-        "aria-hidden": "true"
-      }
-    },
-    [
-      _c(
-        "div",
-        {
-          staticClass: "modal-dialog modal-dialog-centered",
-          attrs: { role: "document" }
-        },
-        [
-          _c("div", { staticClass: "modal-content" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("li", { staticClass: "list-group-item" }, [
-              _c("p", [
-                _vm._v("Fecha de envío: " + _vm._s(_vm.opinionCreatedAt))
-              ]),
-              _vm._v(" "),
-              _c("p", [_vm._v("Dirección IP: " + _vm._s(_vm.opinionIpAddress))])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "list-group-item" }, [
-              _c("p", [_vm._v("Usuario: " + _vm._s(_vm.userName))]),
-              _vm._v(" "),
-              _c("p", [_vm._v("email: " + _vm._s(_vm.userEmail))])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "list-group-item" }, [
-              _c("p", [_vm._v("Empresa: " + _vm._s(_vm.companyName))]),
-              _vm._v(" "),
-              _c("p", [_vm._v("Dirección: " + _vm._s(_vm.companyAddress))])
-            ])
-          ])
-        ]
-      )
-    ]
-  )
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "h5",
-        {
-          staticClass: "modal-title",
-          attrs: { id: "exampleModalCenterTitle" }
-        },
-        [_vm._v("Detalles de la opinión")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OpinionFormComponent.vue?vue&type=template&id=0fb989a2&":
 /*!***********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/OpinionFormComponent.vue?vue&type=template&id=0fb989a2& ***!
@@ -51830,7 +51650,6 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 Vue.component('opinions-component', __webpack_require__(/*! ./components/OpinionsComponent.vue */ "./resources/js/components/OpinionsComponent.vue")["default"]);
 Vue.component('new-opinion-component', __webpack_require__(/*! ./components/NewOpinionComponent.vue */ "./resources/js/components/NewOpinionComponent.vue")["default"]);
 Vue.component('opinion-form-component', __webpack_require__(/*! ./components/OpinionFormComponent.vue */ "./resources/js/components/OpinionFormComponent.vue")["default"]);
-Vue.component('opinion-details-component', __webpack_require__(/*! ./components/OpinionDetailsComponent.vue */ "./resources/js/components/OpinionDetailsComponent.vue")["default"]);
 Vue.component('spinner', __webpack_require__(/*! ./components/Spinner.vue */ "./resources/js/components/Spinner.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -51899,17 +51718,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _NewOpinionComponent_vue_vue_type_template_id_017d41c0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NewOpinionComponent.vue?vue&type=template&id=017d41c0& */ "./resources/js/components/NewOpinionComponent.vue?vue&type=template&id=017d41c0&");
-/* harmony import */ var _NewOpinionComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NewOpinionComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/NewOpinionComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-
-
+var script = {}
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _NewOpinionComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
   _NewOpinionComponent_vue_vue_type_template_id_017d41c0___WEBPACK_IMPORTED_MODULE_0__["render"],
   _NewOpinionComponent_vue_vue_type_template_id_017d41c0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -51926,20 +51743,6 @@ component.options.__file = "resources/js/components/NewOpinionComponent.vue"
 
 /***/ }),
 
-/***/ "./resources/js/components/NewOpinionComponent.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************!*\
-  !*** ./resources/js/components/NewOpinionComponent.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NewOpinionComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./NewOpinionComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NewOpinionComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NewOpinionComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
 /***/ "./resources/js/components/NewOpinionComponent.vue?vue&type=template&id=017d41c0&":
 /*!****************************************************************************************!*\
   !*** ./resources/js/components/NewOpinionComponent.vue?vue&type=template&id=017d41c0& ***!
@@ -51953,75 +51756,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NewOpinionComponent_vue_vue_type_template_id_017d41c0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NewOpinionComponent_vue_vue_type_template_id_017d41c0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/OpinionDetailsComponent.vue":
-/*!*************************************************************!*\
-  !*** ./resources/js/components/OpinionDetailsComponent.vue ***!
-  \*************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _OpinionDetailsComponent_vue_vue_type_template_id_06b85d3c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OpinionDetailsComponent.vue?vue&type=template&id=06b85d3c&scoped=true& */ "./resources/js/components/OpinionDetailsComponent.vue?vue&type=template&id=06b85d3c&scoped=true&");
-/* harmony import */ var _OpinionDetailsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OpinionDetailsComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/OpinionDetailsComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _OpinionDetailsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _OpinionDetailsComponent_vue_vue_type_template_id_06b85d3c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _OpinionDetailsComponent_vue_vue_type_template_id_06b85d3c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  "06b85d3c",
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/OpinionDetailsComponent.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/OpinionDetailsComponent.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/components/OpinionDetailsComponent.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OpinionDetailsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./OpinionDetailsComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OpinionDetailsComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OpinionDetailsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/OpinionDetailsComponent.vue?vue&type=template&id=06b85d3c&scoped=true&":
-/*!********************************************************************************************************!*\
-  !*** ./resources/js/components/OpinionDetailsComponent.vue?vue&type=template&id=06b85d3c&scoped=true& ***!
-  \********************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OpinionDetailsComponent_vue_vue_type_template_id_06b85d3c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./OpinionDetailsComponent.vue?vue&type=template&id=06b85d3c&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OpinionDetailsComponent.vue?vue&type=template&id=06b85d3c&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OpinionDetailsComponent_vue_vue_type_template_id_06b85d3c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OpinionDetailsComponent_vue_vue_type_template_id_06b85d3c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -19,7 +19,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Obtiene el id de usuario y su token para poder manipular los recursos de la API
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -33,7 +33,8 @@ class HomeController extends Controller
 
         $api_token = $query[0];
 
-        return view('opinions.index', [
+        // retorna la vista y esos 2 parametros
+        return view('opinions.index', [ 
             'user_id' => $user_id,
             'api_token' => $api_token
         ]);

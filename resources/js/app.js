@@ -25,8 +25,6 @@ Vue.component('new-opinion-component', require('./components/NewOpinionComponent
 
 Vue.component('opinion-form-component', require('./components/OpinionFormComponent.vue').default);
 
-Vue.component('opinion-details-component', require('./components/OpinionDetailsComponent.vue').default);
-
 Vue.component('spinner', require('./components/Spinner.vue').default);
 
 /**

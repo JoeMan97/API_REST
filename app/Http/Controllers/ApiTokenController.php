@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Http\Controllers\Route;
 
 class ApiTokenController extends Controller
 {
@@ -18,9 +19,9 @@ class ApiTokenController extends Controller
         $token = Str::random(80);
 
         $request->user()->forceFill([
-            'api_token' => $token //hash('sha256', $token),
+            'api_token' => $token //hash('sha256', $token), 
         ])->save();
 
-        return ['token' => $token];
+        // return ['token' => $token];
     }
 }

@@ -66,10 +66,10 @@ class OpinionController extends Controller
             if(is_null(User::find($user_id)))
                 return response()->json('El usuario con el id ' . $user_id . ' no existe.');
         
-            // guarda la opinion
+            // guarda
             $opinion = Opinion::create($request->all());
 
-            // retorna la opinion completa en forma de json
+            // y retorna la opinion completa en formato json
             return $this->getByOpinionId($opinion->opinion_id);
 
         }

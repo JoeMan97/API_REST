@@ -1,3 +1,5 @@
+<!-- Componente para formulario para crear y enviar una nueva opinión  -->
+
 <template>
 
     <div class="modal fade" id="newOpinion" role="dialog" aria-hidden="true">
@@ -79,35 +81,36 @@
                 title: null,
                 resume: null,
                 ip_address: null,
-                user_id: 10,
 
                 // arreglo para obtener posibles errores al enviar el formulario
                 errors: []
             }
         },
         props:
-            ['apiToken'],
+            // prop obtenido de las variable de la vista opinions/index.blade.php
+            ['userId', 'apiToken'],
         mounted(){
-            console.log(this.apiToken);
             axios.get('http://127.0.0.1:8000/api/companies?api_token='+this.apiToken).then(response => (this.companies = response.data));
         },
         methods:{
+            // metodo para enviar la opinión
             saveOpinion: async function() {
-                this.errors = [];
+                
+                this.errors = []; // limpia los mensajes de error  del formulario
 
-                this.score=document.querySelector('input[name="score"]:checked').value;          
+                this.score=document.querySelector('input[name="score"]:checked').value;   // obtiene la puntuacion     
 
-                await $.getJSON("https://api.ipify.org?format=json").then(response => (this.ip_address = response.ip));
+                await $.getJSON("https://api.ipify.org?format=json").then(response => (this.ip_address = response.ip)); // obtiene la IP
 
-                axios.post('http://127.0.0.1:8000/api/opinions?api_token='+this.apiToken,{
+                axios.post('http://127.0.0.1:8000/api/opinions?api_token='+this.apiToken,{ // hace la peticion
                     score: this.score,
                     title: this.title,
                     resume: this.resume,
                     ip_address: this.ip_address,
                     company_id: this.company_id,
-                    user_id: this.user_id
+                    user_id: this.userId
                 })
-                .then(function(res){
+                .then(function(res){ // Emite el evento
                     $('#newOpinion').modal('hide');
                     EventBus.$emit('opinion-added', res.data);
                 })

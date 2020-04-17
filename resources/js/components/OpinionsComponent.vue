@@ -1,3 +1,5 @@
+<!-- Componente para listar las opiniones del usuario -->
+
 <template>
 
     <div>
@@ -29,40 +31,45 @@
 </template>
 
 <script>
-    import OpinionDetails from '../components/OpinionDetailsComponent.vue'
     import EventBus from '../event-bus';
 
     export default {
         data() {    
             return {
+                // variable para saber si las opiniones estan cargando y mostrar el spinner
                 loading: true,
+
+                // variable para mostrar el mensaje de exito al agregar una opinion
                 message: null,
+
+                // arreglo para obtener las opiniones de la BD
                 opinions: []
             }
         },
         created(){
+            // metodo que se ejecuta al enviar una opinion en el formulario
             EventBus.$on('opinion-added', data => {
                 this.opinions.push(data.opinion),
                 this.message = data.message
             });
         },
         props:
+            // props obtenidos de las variables de la vista opinions/index.blade.php
             ['userId', 'apiToken'],
         mounted(){
+            // aqui se obtienen las opiniones del usuario
             axios.get('http://127.0.0.1:8000/api/opinions/'+this.userId+'?api_token='+this.apiToken).then(response => (
                 this.opinions = response.data,
                 this.loading = false
             ));
         },
         methods:{
+            // metodo para mostrar las fechas de las opiniones de manera legible
             getDate(created_at) {
                 var date = new Date(created_at);
                 var sDate = date.getDate()+" / "+(date.getMonth()+1)+" / "+date.getFullYear();
                 return sDate;
             }
         },
-        components: {
-            OpinionDetails
-        }
     }
 </script>

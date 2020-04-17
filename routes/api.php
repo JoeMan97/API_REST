@@ -14,16 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Rutas sin autenticacion
 // Route::apiResources([
 //     'opinions' => 'OpinionController',
 //     'companies' => 'CompanyController'
 // ]);
 
+// index, store, show
 Route::apiResource('companies', 'CompanyController')->middleware('auth:api');
 
-// index
-// Route::get('opinions', 'OpinionController@index')->middleware('auth:api');
-
+// store
 Route::post('opinions', 'OpinionController@store')->middleware('auth:api');
 
 // show

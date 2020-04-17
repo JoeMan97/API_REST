@@ -2,13 +2,12 @@
 
 @extends('layouts.app')
 
-@section('title', 'Mis opiniones')
+@section('title', 'Mis Opiniones')
 
 @section('content')
 
     <new-opinion-component></new-opinion-component>
     <opinions-component user-id="{{ $user_id }}" api-token="{{ $api_token }}"></opinions-component>    
-    <opinion-form-component api-token="{{ $api_token }}"></opinion-form-component>
-    <opinion-details-component></opinion-details-component>
+    <opinion-form-component user-id="{{ $user_id }}" api-token="{{ $api_token }}"></opinion-form-component>
 
 @endsection

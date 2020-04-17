@@ -19,8 +19,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/index', 'HomeController@index')->name('index');
+// Al desloguearse el usuario, se llama a una funcion logout sobreescrita
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::get('/mis opiniones', function () {
-    return view('opinions.index');
-});
+// Al loguearse el usuario, primiero se dirige a este controllador
+Route::get('/mis_opiniones', 'HomeController@index')->name('mis_opiniones');
