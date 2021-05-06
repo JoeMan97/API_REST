@@ -33,9 +33,9 @@ Pasos que olvidé mencionar:
 - Para instalar las dependencias respectivas del proyecto, ejecutar
     composer install
 - Ejecutar los siguientes 3 comandos
-    cp .env.example .env
-    php artisan key:generate
-    chmod 777 -R  storage
+    - cp .env.example .env
+    - php artisan key:generate
+    - chmod 777 -R  storage
 
 Nota: en este punto ya se podrá ver el sitio corriendo, ya solo faltaría la base de datos.
 - Cambiar el nombre de la base de datos en el archivo env
