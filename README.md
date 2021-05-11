@@ -10,30 +10,27 @@ Tecnologías utilizadas:
 - Vue 2.5.17
 - Bootstrap 4.0.0
 
-Instalar XAMPP, Composer, NPM, y Laravel.
-- Es necesario tener instalado un servidor como XAMPP, para cumplir con los requisitos de Laravel.  Mas detalles en https://laravel.com/docs/7.x/installation
-- Tener el administrador de dependencias Composer. El instalador se encuentra en https://getcomposer.org/doc/00-intro.md
-- Teniendo Composer instalado, podrá instalar Laravel con el comando:
+Instalar XAMPP, Composer, Laravel y NPM.
+- Instale XAMPP. Mas detalles en https://laravel.com/docs/7.x/installation
+- Baje el instalador de Composser, el cual se encuentra en https://getcomposer.org/doc/00-intro.md e instale Composser.
+- Instale Laravel con el comando:
     - composer global require laravel/installer
-- Y por último, tener NPM. Debe descargarse de https://nodejs.org/es/ y luego ejecutar el comando:
+- Y por último, descargue NPM de https://nodejs.org/es/ y luego ejecute el comando:
     - npm install
     
  Montar el proyecto:
-- Cree una base de datos llamada api_rest_bd con el formato utf8_unicode_ci.
 - Descargue este proyecto.
-- Ir a la linea 11 del archivo composer.json y agregar la version que se tenga de php instalada en la PC. (ej. En "php": "^7.2.5|8.0.3", agregue "|8.0.3").
-- Ejecutar el comando
+- Valla a la linea 11 del archivo composer.json y agregar la version que se tenga de php instalada en la PC. (ej. En "php": "^7.2.5|8.0.3", agregue "|8.0.3").
+- Ejecute los siguientes 5 comandos en la carpeta raíz del proyecto:
     - composer update
-- Para instalar las dependencias respectivas del proyecto, ejecutar
     - composer install
-- Ejecutar los siguientes 3 comandos
     - cp .env.example .env
     - php artisan key:generate
     - chmod 777 -R  storage
-- En el archivo .env camie el nombre de la app y el nombre de la base de datos a "nxtgames"
-- Vaya a la dirección del proyecto en la terminal del sistema operativo y ejecute el comando
+- En el archivo .env cambie el nombre de la app y el nombre de la base de datos a "api_rest".
+- Cree una base de datos llamada api_rest_bd con el formato utf8_unicode_ci.
+- Ejecute el comando:
     - php artisan migrate
-para crear las tablas en la base de datos.
 - Y finalmente ejecute el comando
     - php artisan serve
-- Vaya a un navegador y entre en la direccion proporcionada por la terminal.
+- Vaya a un navegador y entre en la dirección proporcionada por la terminal.
