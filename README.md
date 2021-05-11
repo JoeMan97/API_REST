@@ -19,16 +19,7 @@ Como montar el proyecto:
     composer global require laravel/installer
 - Cree una base de datos llamada api_rest_bd con el formato utf8_unicode_ci.
 - Descargue este proyecto.
-- Vaya a la dirección del proyecto en la terminal del sistema operativo y ejecute el comando
-    php artisan migrate
-para crear las tablas en la base de datos.
-- Y finalmente ejecute el comando
-    php artisan serve
-- Vaya a un navegador y entre en la direccion proporcionada por la terminal.
-
-Pasos que olvidé mencionar (posiblemente antes del penúltimo punto):
-
-- Ir a la linea 11 del archivo composer.json y agregar la version que se tenga de php instalada en la PC. (ej. En "php": "^7.2.5|8.0.3", agregue "|8.0.3")
+- Ir a la linea 11 del archivo composer.json y agregar la version que se tenga de php instalada en la PC. (ej. En "php": "^7.2.5|8.0.3", agregue "|8.0.3").
 - Ejecutar el comando
     composer update
 - Para instalar las dependencias respectivas del proyecto, ejecutar
@@ -37,6 +28,16 @@ Pasos que olvidé mencionar (posiblemente antes del penúltimo punto):
     - cp .env.example .env
     - php artisan key:generate
     - chmod 777 -R  storage
+- En el archivo .env camie el nombre de la app y el nombre de la base de datos a "nxtgames"
+- Vaya a la dirección del proyecto en la terminal del sistema operativo y ejecute el comando
+    php artisan migrate
+para crear las tablas en la base de datos.
+- Y finalmente ejecute el comando
+    php artisan serve
+- Vaya a un navegador y entre en la direccion proporcionada por la terminal.
+
+
+
 
 Nota: en este punto ya se podrá ver el sitio corriendo.
 - Cambiar el nombre de la base de datos en el archivo env.
