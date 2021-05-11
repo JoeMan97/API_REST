@@ -31,6 +31,6 @@ Instalar XAMPP, Composer, Laravel y NPM.
 - Cree una base de datos llamada "api_rest_bd" con el formato utf8_unicode_ci.
 - Ejecute el comando:
     - php artisan migrate
-- Y finalmente ejecute el comando
+- Y finalmente ejecute el comando:
     - php artisan serve
 - Vaya a un navegador y entre en la dirección proporcionada por la terminal.
